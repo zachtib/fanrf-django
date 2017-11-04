@@ -3,6 +3,8 @@ from django.db import models
 
 import os
 
+from django.urls import reverse
+
 from fanrf import settings
 
 
@@ -41,6 +43,11 @@ class Fan(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         cmd = self.get_command()
-        print(cmd)
-        os.system(cmd)
+        if settings.DEBUG:
+            print(cmd)
+        else:
+            os.system(cmd)
         super().save(force_insert, force_update, using, update_fields)
+
+    def get_absolute_url(self):
+        return reverse('fan_update', kwargs={'pk': self.pk})

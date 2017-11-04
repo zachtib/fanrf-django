@@ -16,6 +16,12 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from fan.views import FanList, FanUpdate, api_fan_speed, api_brightness
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', FanList.as_view(), name='fan_list'),
+    url(r'^(?P<pk>\d+)/$', FanUpdate.as_view(), name='fan_update'),
+    url(r'^api/(?P<pk>\d+)/light/(?P<brightness>\d+)/$', api_brightness, name='api_brightness'),
+    url(r'^api/(?P<pk>\d+)/speed/(?P<speed>\w+)/$', api_fan_speed, name='api_speed'),
 ]

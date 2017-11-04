@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Speed</th>
+            <th scope="col">Brightness</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for fan in fan_list %}
+                <tr>
+                    <th scope="row">{{ fan.id }}</th>
+                    <td><a href="{{ fan.get_absolute_url }}">{{ fan.name }}</a></td>
+                    <td>{{ fan.get_fan_speed_display|title }}</td>
+                    <td>{{ fan.brightness }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
