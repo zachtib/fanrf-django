@@ -25,7 +25,7 @@ SECRET_KEY = 'cpo%a7&f496j*gnzzi%jcf35xsr78o@em%5s=f=b1f!+%g_awe'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", 'orangepizero').split(',')
 
 
 # Application definition

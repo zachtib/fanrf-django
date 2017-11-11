@@ -26,6 +26,10 @@ class Fan(models.Model):
 
     fan_speed = models.CharField(max_length=1, choices=FAN_SPEED_CHOICES, default=OFF)
     brightness = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
+    light = models.BooleanField(default=False)
+
+    def get_light_value(self):
+        return self.brightness if self.light else 0
 
     def __str__(self):
         return self.name
@@ -51,3 +55,11 @@ class Fan(models.Model):
 
     def get_absolute_url(self):
         return reverse('fan_update', kwargs={'pk': self.pk})
+
+    def get_status(self):
+        return {
+            'name': self.name,
+            'brightness': self.brightness,
+            'light': self.light,
+            'fan_speed': self.fan_speed,
+        }

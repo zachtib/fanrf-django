@@ -6,8 +6,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
-            <th scope="col">Speed</th>
-            <th scope="col">Brightness</th>
+            <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -15,8 +14,13 @@
                 <tr>
                     <th scope="row">{{ fan.id }}</th>
                     <td><a href="{{ fan.get_absolute_url }}">{{ fan.name }}</a></td>
-                    <td>{{ fan.get_fan_speed_display|title }}</td>
-                    <td>{{ fan.brightness }}</td>
+                    <td>
+                        {% if fan.light %}
+                            <a href="{% url 'fan_toggle' pk=fan.pk %}" class="btn btn-sm btn-light">On</a>
+                        {% else %}
+                            <a href="{% url 'fan_toggle' pk=fan.pk %}" class="btn btn-sm btn-dark">Off</a>
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
