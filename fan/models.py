@@ -29,7 +29,7 @@ class Fan(models.Model):
     light = models.BooleanField(default=False)
 
     def get_light_value(self):
-        return self.brightness if self.light else 0
+        return str(self.brightness) if self.light else '0'
 
     def __str__(self):
         return self.name
@@ -41,7 +41,7 @@ class Fan(models.Model):
                                  '--shutdown=' + settings.SHUTDOWN,
                                  '--address=' + str(self.address)])
         if self.smart:
-            return ' '.join([base_command, 'smart', self.get_fan_speed_display(), str(self.brightness)])
+            return ' '.join([base_command, 'smart', self.get_fan_speed_display(), self.get_light_value()])
         else:
             return ''
 
