@@ -8,7 +8,12 @@ from django.urls import reverse
 from fanrf import settings
 
 
-class Fan(models.Model):
+class FanConfig(models.Model):
+    name = models.CharField(max_length=255)
+    address = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(15)])
+    smart = models.BooleanField()
+
+class FanState(models.Model):
     OFF = 'O'
     LOW = 'L'
     MEDIUM = 'M'
@@ -20,10 +25,8 @@ class Fan(models.Model):
         (MEDIUM, 'medium'),
         (HIGH, 'high')
     )
-    name = models.CharField(max_length=255)
-    address = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(15)])
-    smart = models.BooleanField()
 
+    fan = models.OneToOneField(Fan, related_name='state')
     fan_speed = models.CharField(max_length=1, choices=FAN_SPEED_CHOICES, default=OFF)
     brightness = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
     light = models.BooleanField(default=False)
