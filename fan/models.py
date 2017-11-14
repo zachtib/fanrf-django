@@ -8,7 +8,7 @@ from django.urls import reverse
 from fanrf import settings
 
 
-class FanConfig(models.Model):
+class Fan(models.Model):
     name = models.CharField(max_length=255)
     address = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(15)])
     smart = models.BooleanField()
